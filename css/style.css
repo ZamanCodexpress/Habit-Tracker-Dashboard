@@ -1,0 +1,1352 @@
+/* ========================================
+   CSS Variables & Theme System
+   ======================================== */
+
+:root {
+    /* Light Theme Colors */
+    --bg-primary: #f5f7fa;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #e8ecf1;
+    --text-primary: #2c3e50;
+    --text-secondary: #546e7a;
+    --text-tertiary: #90a4ae;
+    --accent-primary: #845EC2;
+    --accent-secondary: #4ECDC4;
+    --border-color: #e0e6ed;
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --overlay: rgba(0, 0, 0, 0.5);
+    
+    /* Calendar Colors - Light */
+    --cal-empty: #ebedf0;
+    --cal-level-1: #c6e48b;
+    --cal-level-2: #7bc96f;
+    --cal-level-3: #239a3b;
+    --cal-level-4: #196127;
+    
+    /* Status Colors */
+    --success: #4CAF50;
+    --warning: #FF9800;
+    --danger: #F44336;
+    --info: #2196F3;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    
+    /* Border Radius */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-full: 9999px;
+    
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 400ms ease;
+    
+    /* Layout */
+    --sidebar-width: 240px;
+    --header-height: 64px;
+    --bottom-nav-height: 64px;
+}
+
+/* Dark Theme */
+/* Dark Theme */
+body.dark-theme {
+    /* Cyberpunk / Deep Navy Theme */
+    --bg-primary: #0b1120;     /* Very deep navy/black */
+    --bg-secondary: #0f1629;   /* Dark navy card background */
+    --bg-tertiary: #1a233b;    /* Slightly lighter for inputs/hover */
+    
+    --text-primary: #f0f6fc;   /* White with slight blue tint */
+    --text-secondary: #8b949e; /* Muted blue-gray */
+    --text-tertiary: #6b7280;
+    
+    --accent-primary: #00d9ff; /* Neon Cyan */
+    --accent-secondary: #2196f3; /* Bright Blue */
+    
+    --border-color: #1e293b;
+    
+    /* Glowing Shadows */
+    --shadow-sm: 0 0 10px rgba(0, 217, 255, 0.05);
+    --shadow-md: 0 0 20px rgba(0, 217, 255, 0.1);
+    --shadow-lg: 0 0 30px rgba(0, 217, 255, 0.15);
+    --overlay: rgba(11, 17, 32, 0.85); /* Dark blue overlay */
+    
+    /* Calendar Colors - Neon/Cyberpunk */
+    --cal-empty: #161b22;
+    --cal-level-1: #0e4429;
+    --cal-level-2: #006d32;
+    --cal-level-3: #26a641;
+    --cal-level-4: #39d353;
+}
+
+/* ========================================
+   Reset & Base Styles
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    transition: background var(--transition-base), color var(--transition-base);
+    overflow-x: hidden;
+}
+
+/* ========================================
+   Header
+   ======================================== */
+
+.app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    z-index: 100;
+    transition: all var(--transition-base);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 var(--spacing-lg);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-sm);
+}
+
+.menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 3px;
+    background: var(--text-primary);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+}
+
+.app-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.theme-toggle {
+    background: var(--bg-tertiary);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    background: var(--accent-primary);
+}
+
+/* ========================================
+   Layout Container
+   ======================================== */
+
+.app-container {
+    display: flex;
+    margin-top: var(--header-height);
+    min-height: calc(100vh - var(--header-height));
+}
+
+/* ========================================
+   Sidebar
+   ======================================== */
+
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+    padding: var(--spacing-lg);
+    transition: all var(--transition-base);
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+    text-align: left;
+}
+
+.nav-item:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.nav-item.active {
+    background: var(--accent-primary);
+    color: white;
+}
+
+.nav-icon {
+    font-size: 1.25rem;
+}
+
+/* ========================================
+   Main Content
+   ======================================== */
+
+.main-content {
+    flex: 1;
+    padding: var(--spacing-xl);
+    overflow-y: auto;
+}
+
+.view {
+    display: none;
+    animation: fadeIn var(--transition-base);
+}
+
+.view.active {
+    display: block;
+}
+
+.view-header {
+    margin-bottom: var(--spacing-xl);
+}
+
+.view-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+}
+
+.view-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* ========================================
+   Daily Tracker View
+   ======================================== */
+
+.today-summary {
+    display: flex;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.summary-stat {
+    background: var(--bg-secondary);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-top: var(--spacing-xs);
+}
+
+.habit-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.habit-item {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.habit-item:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.habit-item.completed {
+    border-color: var(--success);
+}
+
+.habit-checkbox {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all var(--transition-fast);
+    background: var(--bg-primary);
+}
+
+.habit-item.completed .habit-checkbox {
+    background: var(--success);
+    border-color: var(--success);
+    animation: checkPulse 0.3s ease;
+}
+
+.habit-checkbox::after {
+    content: '✓';
+    color: white;
+    font-weight: bold;
+    opacity: 0;
+    transform: scale(0);
+    transition: all var(--transition-fast);
+}
+
+.habit-item.completed .habit-checkbox::after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.habit-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.habit-details {
+    flex: 1;
+}
+
+.habit-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+}
+
+.habit-meta {
+    display: flex;
+    gap: var(--spacing-md);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.streak-badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.streak-badge.milestone {
+    color: var(--warning);
+    font-weight: 600;
+}
+
+.btn-add-habit {
+    background: var(--accent-primary);
+    color: white;
+    border: none;
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-add-habit:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    background: var(--accent-secondary);
+}
+
+/* ========================================
+   Calendar View
+   ======================================== */
+
+.calendar-controls {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+}
+
+.habit-select {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.calendar-legend {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.legend-colors {
+    display: flex;
+    gap: 4px;
+}
+
+.legend-box {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+}
+
+.legend-box[data-level="0"] { background: var(--cal-empty); }
+.legend-box[data-level="1"] { background: var(--cal-level-1); }
+.legend-box[data-level="2"] { background: var(--cal-level-2); }
+.legend-box[data-level="3"] { background: var(--cal-level-3); }
+.legend-box[data-level="4"] { background: var(--cal-level-4); }
+
+.calendar-container {
+    background: var(--bg-secondary);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(7, 1fr);
+    gap: 4px;
+    min-width: 700px;
+}
+
+.calendar-day {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    transition: all var(--transition-fast);
+    position: relative;
+    cursor: pointer;
+}
+
+.calendar-day:hover {
+    transform: scale(1.3);
+    z-index: 10;
+    box-shadow: var(--shadow-md);
+}
+
+.calendar-tooltip {
+    position: absolute;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 1000;
+    box-shadow: var(--shadow-md);
+    display: none;
+}
+
+.calendar-day:hover .calendar-tooltip {
+    display: block;
+}
+
+/* ========================================
+   Analytics View
+   ======================================== */
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.stat-card {
+    background: var(--bg-secondary);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    transition: all var(--transition-fast);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+}
+
+.card-content {
+    flex: 1;
+}
+
+.card-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+}
+
+.card-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-top: var(--spacing-xs);
+}
+
+.charts-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.chart-card {
+    background: var(--bg-secondary);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.chart-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+}
+
+#habitPerformance {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.performance-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.performance-label {
+    min-width: 120px;
+    font-size: 0.9rem;
+}
+
+.performance-track {
+    flex: 1;
+    height: 24px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    position: relative;
+}
+
+.performance-fill {
+    height: 100%;
+    border-radius: var(--radius-full);
+    transition: width 0.6s ease;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+}
+
+.performance-value {
+    min-width: 50px;
+    text-align: right;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   Manage Habits View
+   ======================================== */
+
+.habits-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.manage-habit-item {
+    background: var(--bg-secondary);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.habit-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-left: auto;
+}
+
+.btn-icon-only {
+    background: var(--bg-tertiary);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.btn-icon-only:hover {
+    background: var(--accent-primary);
+    color: white;
+}
+
+.btn-icon-only.danger:hover {
+    background: var(--danger);
+}
+
+/* ========================================
+   Modal
+   ======================================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--overlay);
+    animation: fadeIn var(--transition-base);
+}
+
+.modal-content {
+    position: relative;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp var(--transition-base);
+}
+
+.modal-small {
+    max-width: 400px;
+}
+
+.modal-header {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.modal-close:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.modal-body {
+    padding: var(--spacing-xl);
+}
+
+.modal-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: flex-end;
+    margin-top: var(--spacing-xl);
+}
+
+/* ========================================
+   Forms
+   ======================================== */
+
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: var(--spacing-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all var(--transition-fast);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(132, 94, 194, 0.1);
+}
+
+.color-picker {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.color-option {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.color-option.selected {
+    border-color: var(--text-primary);
+    box-shadow: var(--shadow-md);
+}
+
+.frequency-selector {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.frequency-option {
+    flex: 1;
+    padding: var(--spacing-md);
+    border: 2px solid var(--border-color);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+}
+
+.frequency-option:hover {
+    border-color: var(--accent-primary);
+}
+
+.frequency-option.selected {
+    background: var(--accent-primary);
+    color: white;
+    border-color: var(--accent-primary);
+}
+
+/* ========================================
+   Buttons
+   ======================================== */
+
+.btn {
+    padding: var(--spacing-md) var(--spacing-xl);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.btn-primary {
+    background: var(--accent-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--accent-secondary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+    background: var(--border-color);
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ========================================
+   Bottom Navigation (Mobile)
+   ======================================== */
+
+.bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--bottom-nav-height);
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    z-index: 100;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.bottom-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 0.75rem;
+}
+
+.bottom-nav-item.active {
+    color: var(--accent-primary);
+    font-weight: 600;
+}
+
+.bottom-nav-item .nav-icon {
+    font-size: 1.5rem;
+}
+
+/* ========================================
+   Animations
+   ======================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes checkPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: var(--header-height);
+        left: -100%;
+        bottom: 0;
+        z-index: 99;
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .sidebar.active {
+        left: 0;
+    }
+    
+    .menu-toggle {
+        display: flex;
+    }
+    
+    .main-content {
+        padding: var(--spacing-md);
+        padding-bottom: calc(var(--bottom-nav-height) + var(--spacing-md));
+    }
+    
+    .bottom-nav {
+        display: flex;
+    }
+    
+    .view-title {
+        font-size: 1.5rem;
+    }
+    
+    .today-summary {
+        flex-wrap: wrap;
+    }
+    
+    .analytics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+    }
+    
+    .charts-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-card {
+        padding: var(--spacing-md);
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .card-value {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-title {
+        font-size: 1.25rem;
+    }
+    
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .habit-item {
+        padding: var(--spacing-md);
+    }
+    
+    .habit-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.25rem;
+    }
+}
+
+/* ========================================
+   Utility Classes
+   ======================================== */
+
+.empty-state {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    color: var(--text-secondary);
+}
+
+.empty-state-icon {
+    font-size: 4rem;
+    margin-bottom: var(--spacing-md);
+    opacity: 0.5;
+}
+
+.empty-state-text {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-md);
+}
+
+/* ========================================
+   Dark Theme Hover Effects (Cyberpunk Glow)
+   ======================================== */
+
+body.dark-theme .habit-item:hover,
+body.dark-theme .stat-card:hover,
+body.dark-theme .chart-card:hover,
+body.dark-theme .manage-habit-item:hover,
+body.dark-theme .calendar-day:hover {
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.25);
+    border-color: var(--accent-primary);
+    transform: translateY(-4px);
+    transition: all 0.3s ease;
+}
+
+body.dark-theme .btn:hover,
+body.dark-theme .btn-icon-only:hover,
+body.dark-theme .theme-toggle:hover,
+body.dark-theme .menu-toggle:hover {
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.4);
+    transform: translateY(-2px) scale(1.05);
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+body.dark-theme .nav-item:hover,
+body.dark-theme .bottom-nav-item:hover {
+    color: var(--accent-primary);
+    text-shadow: 0 0 8px rgba(0, 217, 255, 0.5);
+}
+
+/* Active states with stronger glow */
+body.dark-theme .nav-item.active,
+body.dark-theme .bottom-nav-item.active {
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
+    border-color: var(--accent-primary);
+}
+
+/* Input focus glow */
+body.dark-theme .form-input:focus {
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
+    border-color: var(--accent-primary);
+}
+
+
+/* Chart Legend */
+.chart-legend {
+    margin-top: var(--spacing-md);
+    max-height: 100px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.legend-item {
+    padding: 4px;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast);
+}
+
+.legend-item:hover {
+    background: var(--bg-tertiary);
+}
+
+
+/* ========================================
+   AI Insights Widget
+   ======================================== */
+
+.insight-card {
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Cyberpunk Glow for Insights */
+body.dark-theme .insight-card {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.15);
+}
+
+.insight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.insight-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.insight-badge {
+    background: var(--accent-primary);
+    color: var(--bg-primary);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.insight-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+.insight-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.tips-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.tips-list li {
+    background: rgba(255, 255, 255, 0.05);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--accent-secondary);
+    font-size: 0.95rem;
+}
+
+body.light-theme .tips-list li {
+    background: var(--bg-primary);
+}
+
+.risk-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.risk-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.risk-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.risk-bar-container {
+    height: 8px;
+    background: var(--bg-primary);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.risk-bar {
+    height: 100%;
+    border-radius: var(--radius-full);
+    transition: width 1s ease;
+}
+
+.risk-score {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-align: right;
+}
+
+
+/* ========================================
+   Live Clock Widget
+   ======================================== */
+
+.live-clock-container {
+    background: var(--bg-secondary);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+}
+
+body.dark-theme .live-clock-container {
+    background: linear-gradient(135deg, rgba(15, 22, 41, 0.9), rgba(26, 35, 59, 0.9));
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 25px rgba(0, 217, 255, 0.15);
+}
+
+.clock-time {
+    font-size: 3.5rem;
+    font-weight: 800;
+    font-family: 'Courier New', monospace; /* Monospace for stability */
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: var(--spacing-sm);
+    letter-spacing: 2px;
+}
+
+body.dark-theme .clock-time {
+    color: var(--accent-secondary);
+    text-shadow: 0 0 15px rgba(33, 150, 243, 0.6);
+}
+
+.clock-date {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+body.dark-theme .clock-date {
+    color: var(--accent-primary);
+    text-shadow: 0 0 8px rgba(0, 217, 255, 0.4);
+}
+
+
+/* ========================================
+   Custom Scrollbar
+   ======================================== */
+
+/* Width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--bg-primary); 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--bg-tertiary); 
+    border-radius: var(--radius-full);
+    border: 2px solid var(--bg-primary);
+}
+
+/* Handle on hover (Light Mode default) */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary); 
+}
+
+/* Dark Theme Scrollbar */
+body.dark-theme ::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+body.dark-theme ::-webkit-scrollbar-thumb {
+    background: var(--bg-tertiary);
+    border: 2px solid var(--bg-primary);
+}
+
+body.dark-theme ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-primary); /* Neon Cyan on hover */
+    box-shadow: 0 0 10px var(--accent-primary);
+}
+
+
+
+

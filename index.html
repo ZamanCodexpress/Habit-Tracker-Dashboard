@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Track your daily habits, visualize progress, and maintain streaks">
+    <title>Habit Tracker Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-content">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <h1 class="app-title">🎯 Habit Tracker</h1>
+            </div>
+            <div class="header-right">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-view="tracker">
+                    <span class="nav-icon">✅</span>
+                    <span class="nav-label">Daily Tracker</span>
+                </button>
+                <button class="nav-item" data-view="calendar">
+                    <span class="nav-icon">📅</span>
+                    <span class="nav-label">Calendar</span>
+                </button>
+                <button class="nav-item" data-view="analytics">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-label">Analytics</span>
+                </button>
+                <button class="nav-item" data-view="habits">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-label">Manage Habits</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Daily Tracker View -->
+            <section class="view active" id="trackerView">
+                <div class="view-header">
+                    <h2 class="view-title">Today's Habits</h2>
+                    <p class="view-subtitle" id="currentDate">Loading...</p>
+                </div>
+                <div class="today-summary" id="todaySummary">
+                    <div class="summary-stat">
+                        <span class="stat-value">0</span>
+                        <span class="stat-label">Completed</span>
+                    </div>
+                    <div class="summary-stat">
+                        <span class="stat-value">0%</span>
+                        <span class="stat-label">Progress</span>
+                    </div>
+                </div>
+                <div class="habit-list" id="dailyHabitList">
+                    <!-- Habit items will be rendered here -->
+                </div>
+                <button class="btn-add-habit" id="addHabitBtn">
+                    <span class="btn-icon">➕</span>
+                    <span>Add New Habit</span>
+                </button>
+            </section>
+
+            <!-- Calendar View -->
+            <section class="view" id="calendarView">
+                <div class="view-header">
+                    <h2 class="view-title">Activity Calendar</h2>
+                    <div class="calendar-controls">
+                        <select id="calendarHabitSelect" class="habit-select">
+                            <option value="all">All Habits</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Live Clock Widget -->
+                <div class="live-clock-container" id="liveClock" style="margin-bottom: var(--spacing-xl);">
+                    <div class="clock-time">00:00:00</div>
+                    <div class="clock-date">Monday, January 1, 2026</div>
+                </div>
+
+                <div class="calendar-legend">
+                    <span>Less</span>
+                    <div class="legend-colors">
+                        <span class="legend-box" data-level="0"></span>
+                        <span class="legend-box" data-level="1"></span>
+                        <span class="legend-box" data-level="2"></span>
+                        <span class="legend-box" data-level="3"></span>
+                        <span class="legend-box" data-level="4"></span>
+                    </div>
+                    <span>More</span>
+                </div>
+                <div class="calendar-container" id="calendarContainer">
+                    <!-- Calendar grid will be rendered here -->
+                </div>
+            </section>
+
+            <!-- Analytics View -->
+            <section class="view" id="analyticsView">
+                <div class="view-header">
+                    <h2 class="view-title">Analytics & Insights</h2>
+                </div>
+                
+                <!-- AI Insights Widget -->
+                <div id="insightsWidget" style="margin-bottom: var(--spacing-xl);"></div>
+
+                <div class="analytics-grid">
+                    <div class="stat-card">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-content">
+                            <div class="card-value" id="totalHabits">0</div>
+                            <div class="card-label">Active Habits</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="card-icon">🔥</div>
+                        <div class="card-content">
+                            <div class="card-value" id="longestStreak">0</div>
+                            <div class="card-label">Longest Streak</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="card-icon">📈</div>
+                        <div class="card-content">
+                            <div class="card-value" id="weeklyProgress">0%</div>
+                            <div class="card-label">Weekly Average</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="card-icon">⭐</div>
+                        <div class="card-content">
+                            <div class="card-value" id="monthlyProgress">0%</div>
+                            <div class="card-label">Monthly Average</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ... charts ... -->
+                <div class="charts-section">
+                    <div class="chart-card">
+                        <h3 class="chart-title">Weekly Completion Rate</h3>
+                        <canvas id="weeklyChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3 class="chart-title">Habit Performance</h3>
+                        <div id="habitPerformance">
+                            <!-- Habit performance bars will be rendered here -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Row 2: Pie and Line Charts -->
+                <div class="charts-section" style="margin-top: var(--spacing-lg);">
+                    <div class="chart-card">
+                        <h3 class="chart-title">Completion Distribution</h3>
+                        <canvas id="distributionPieChart" width="400" height="300"></canvas>
+                        <div id="pieChartLegend" class="chart-legend"></div>
+                    </div>
+                    <div class="chart-card">
+                        <h3 class="chart-title">30-Day Trend</h3>
+                        <canvas id="monthlyTrendChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Manage Habits View -->
+            <section class="view" id="habitsView">
+                <div class="view-header">
+                    <h2 class="view-title">Manage Habits</h2>
+                </div>
+                <div class="habits-list" id="manageHabitsList">
+                    <!-- Habit management items will be rendered here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add/Edit Habit Modal -->
+    <div class="modal" id="habitModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Add New Habit</h3>
+                <button class="modal-close" id="modalClose" aria-label="Close modal">✕</button>
+            </div>
+            <form class="modal-body" id="habitForm">
+                <div class="form-group">
+                    <label for="habitName">Habit Name</label>
+                    <input type="text" id="habitName" class="form-input" placeholder="e.g., Morning Exercise" required maxlength="50">
+                </div>
+                <div class="form-group">
+                    <label for="habitIcon">Icon (emoji)</label>
+                    <input type="text" id="habitIcon" class="form-input" placeholder="💪" maxlength="2">
+                </div>
+                <div class="form-group">
+                    <label>Color</label>
+                    <div class="color-picker" id="colorPicker">
+                        <button type="button" class="color-option" data-color="#FF6B6B" style="background: #FF6B6B"></button>
+                        <button type="button" class="color-option" data-color="#4ECDC4" style="background: #4ECDC4"></button>
+                        <button type="button" class="color-option" data-color="#45B7D1" style="background: #45B7D1"></button>
+                        <button type="button" class="color-option" data-color="#96CEB4" style="background: #96CEB4"></button>
+                        <button type="button" class="color-option" data-color="#FFEAA7" style="background: #FFEAA7"></button>
+                        <button type="button" class="color-option" data-color="#DDA15E" style="background: #DDA15E"></button>
+                        <button type="button" class="color-option" data-color="#BC6C25" style="background: #BC6C25"></button>
+                        <button type="button" class="color-option selected" data-color="#845EC2" style="background: #845EC2"></button>
+                        <button type="button" class="color-option" data-color="#FF6F91" style="background: #FF6F91"></button>
+                        <button type="button" class="color-option" data-color="#F9A826" style="background: #F9A826"></button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Frequency</label>
+                    <div class="frequency-selector">
+                        <button type="button" class="frequency-option selected" data-frequency="daily">Daily</button>
+                        <button type="button" class="frequency-option" data-frequency="weekly">Weekly</button>
+                    </div>
+                </div>
+                <input type="hidden" id="habitId">
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveBtn">Save Habit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h3 class="modal-title">Delete Habit?</h3>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete "<span id="deleteHabitName"></span>"? This action cannot be undone.</p>
+                <input type="hidden" id="deleteHabitId">
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+                    <button class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav" id="bottomNav">
+        <button class="bottom-nav-item active" data-view="tracker">
+            <span class="nav-icon">✅</span>
+            <span class="nav-label">Tracker</span>
+        </button>
+        <button class="bottom-nav-item" data-view="calendar">
+            <span class="nav-icon">📅</span>
+            <span class="nav-label">Calendar</span>
+        </button>
+        <button class="bottom-nav-item" data-view="analytics">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Stats</span>
+        </button>
+        <button class="bottom-nav-item" data-view="habits">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-label">Habits</span>
+        </button>
+    </nav>
+
+    <!-- JavaScript Modules -->
+    <script src="js/storage.js" defer></script>
+    <script src="js/habits.js" defer></script>
+    <script src="js/streaks.js" defer></script>
+    <script src="js/tracker.js" defer></script>
+    <script src="js/calendar.js" defer></script>
+    <script src="js/analytics.js" defer></script>
+    <script src="js/insights.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/app.js" defer></script>
+</body>
+</html>
