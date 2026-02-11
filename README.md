@@ -94,7 +94,7 @@ All data is stored locally in the browser using **LocalStorage**, making the app
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/habit-tracker-dashboard.git
+git clone https://github.com/ZamanCodexpress/Habit-Tracker-Dashboard.git
 ```
 
 **OR** download the project as a `.zip` file and extract it.
