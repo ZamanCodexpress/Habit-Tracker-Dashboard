@@ -134,10 +134,4 @@ This project is **open-source** and intended for **educational and portfolio use
 
 ## Author
 
-Built as a frontend practice project to demonstrate:
-
-* UI architecture
-* Modular JavaScript design
-* Data visualization
-* State persistence
-* Analytical feature implementation
+Designed and developed by **Zaman Siraj**
